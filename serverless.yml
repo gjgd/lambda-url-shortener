@@ -19,7 +19,7 @@ provider:
   profile: serverless-admin
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    URL: 't.gjgd.fr'
+    URL: 'tiny.gjgd.fr'
   iamRoleStatements:
     - Effect: Allow
       Action:
