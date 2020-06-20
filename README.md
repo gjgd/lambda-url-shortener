@@ -6,9 +6,9 @@ https://tiny.gjgd.fr/
 
 ## How to deploy your own shortener
 
-1) Install serverless `npm i -g serverless`
+1) Install serverless `npm i -g serverless`
 2) Setup AWS credentials https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/credentials.md
-3) `sls deploy`
+3) `sls deploy`
 4) Optional: Setup custom domain (see instructions below)
 
 ## Useful links
