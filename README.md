@@ -4,6 +4,13 @@ A personal URL shortener service powered by Serverless, AWS Lambda and DynamoDB
 
 https://tiny.gjgd.fr/
 
+## How to deploy your own shortener
+
+1) Install serverless `npm i -g serverless`
+2) Setup AWS credentials https://github.com/serverless/serverless/blob/master/docs/providers/aws/guide/credentials.md
+3) `sls deploy`
+4) Optional: Setup custom domain (see instructions below)
+
 ## Useful links
 
 - https://theburningmonk.com/2017/04/aws-lambda-build-yourself-a-url-shortener-in-2-hours/
