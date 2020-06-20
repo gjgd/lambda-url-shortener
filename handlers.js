@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
-// eslint-disable-next-line import/no-extraneous-dependencies
 const { DynamoDB } = require('aws-sdk');
 const uuid = require('uuid');
 const fs = require('fs');
