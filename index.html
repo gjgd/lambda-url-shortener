@@ -39,7 +39,7 @@
         .then(res => res.json())
         .then((data) => {
           const successEl = document.getElementById('result');
-          successEl.innerHTML = `Your short URL is <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
+          successEl.innerHTML = `Your short URL is <a href="https://${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
         });
       }
     }
