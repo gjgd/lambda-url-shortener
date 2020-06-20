@@ -1,6 +1,6 @@
 service: lambda-url-shortener
-# org: gjgdserverless
-# app: lambda-url-shortener
+org: gjgdserverless
+app: lambda-url-shortener
 
 plugins:
   - serverless-domain-manager
