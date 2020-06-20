@@ -1,10 +1,25 @@
 // eslint-disable-next-line import/no-unresolved
 const { DynamoDB } = require('aws-sdk');
 const uuid = require('uuid');
+const fs = require('fs');
+
+const homeHtml = fs.readFileSync('./index.html').toString();
 
 const dynamoDb = new DynamoDB.DocumentClient();
 
+module.exports.home = async () => {
+  console.log('home');
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'text/html',
+    },
+    body: homeHtml,
+  };
+};
+
 module.exports.redirect = async (event) => {
+  console.log('redirect');
   if (event.pathParameters && event.pathParameters.shortUrl) {
     const { shortUrl } = event.pathParameters;
     const params = {
@@ -37,7 +52,7 @@ const getNewId = async () => {
 };
 
 module.exports.create = async (event) => {
-  // console.log(event);
+  console.log('create');
   const body = JSON.parse(event.body);
   const { url } = body;
   const id = await getNewId();

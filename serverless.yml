@@ -41,6 +41,12 @@ functions:
       - http:
           path: /{shortUrl}
           method: get
+  home:
+    handler: handlers.home
+    events:
+      - http:
+          path: /
+          method: get
   create:
     handler: handlers.create
     events:
