@@ -21,7 +21,7 @@ https://tiny.gjgd.fr/
 
 1) Get a domain. If you didn't register through Route53, create a hosted zone in AWS console
 2) Create a certificate
-3) Once the certificate is verified set the domain in `serverless.yml`
+3) Once the certificate is verified set the domain in `serverless.yml`
 4) Create domain (see commmands below) and deploy
 5) Wait for DNS record to propagate (up to an hour)
 6) Enjoy your short custom domain!
