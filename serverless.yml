@@ -7,7 +7,7 @@ plugins:
 
 custom:
   customDomain:
-    domainName: t.gjgd.fr
+    domainName: ${self:provider.environment.URL}
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
@@ -19,7 +19,7 @@ provider:
   profile: serverless-admin
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    URL: 'https://9ujgwbn6a1.execute-api.us-east-1.amazonaws.com/dev/'
+    URL: 't.gjgd.fr'
   iamRoleStatements:
     - Effect: Allow
       Action:

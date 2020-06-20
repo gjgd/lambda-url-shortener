@@ -68,7 +68,7 @@ module.exports.create = async (event) => {
     statusCode: 200,
     body: JSON.stringify(
       {
-        shortUrl: `${process.env.URL}${id}`,
+        shortUrl: `${process.env.URL}/${id}`,
       },
       null,
       2,
