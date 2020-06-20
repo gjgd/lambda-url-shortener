@@ -4,28 +4,44 @@
   </head>
 
   <body>
-    Input Url
-    <input type="text" id="url" name="url" placeholder="http://example.com/a-very-long-url">
+    <input type="text" id="url" placeholder="Input URL to shorten">
     <button onclick="shortenUrl()">Shorten</button>
     <div id="result"></div>
+    <div id="error"></div>
   </body>
 
   <script type="text/javascript">
+    // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+    function isValidUrl(string) {
+      try {
+        new URL(string);
+      } catch (_) {
+        return false;
+      }
+
+      return true;
+    }
+
     function shortenUrl() {
       const el = document.getElementById('url');
-      fetch('/dev', {
-        method: 'POST',
-        headers: {
-          "Content-type": "application/json; charset=UTF-8"
-        },
-        body: JSON.stringify({ url: el.value }),
-      })
-      .then(res => res.json())
-      .then((data) => {
-        console.log(data);
-        const successEl = document.getElementById('result');
-        successEl.innerHTML = `Your short URL is <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
-      });
+      const url = el.value;
+      if(!isValidUrl(url)) {
+        const errorEl = document.getElementById('error');
+        errorEl.innerHTML = `"${url}" is not a valid URL`;
+      } else {
+        fetch('/', {
+          method: 'POST',
+          headers: {
+            "Content-type": "application/json; charset=UTF-8"
+          },
+          body: JSON.stringify({ url }),
+        })
+        .then(res => res.json())
+        .then((data) => {
+          const successEl = document.getElementById('result');
+          successEl.innerHTML = `Your short URL is <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
+        });
+      }
     }
   </script>
 </html>
