@@ -1,6 +1,8 @@
 # Lambda URL Shortener
 
-A personal URL shortener powered by AWS Lambda and DynamoDB
+A personal URL shortener service powered by Serverless, AWS Lambda and DynamoDB
+
+https://tiny.gjgd.fr/
 
 ## Useful links
 
@@ -15,7 +17,7 @@ A personal URL shortener powered by AWS Lambda and DynamoDB
 3) Once the certificate is verified set the domain in `serverless.yml`
 4) Create domain (see commmands below) and deploy
 5) Wait for DNS record to propagate (up to an hour)
-6) Enjoy your custom domain!
+6) Enjoy your short custom domain!
 
 ### Useful links
 
