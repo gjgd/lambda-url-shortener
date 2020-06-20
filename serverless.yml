@@ -7,7 +7,7 @@ plugins:
 
 custom:
   customDomain:
-    domainName: tiny.gjgd.fr
+    domainName: t.gjgd.fr
     basePath: ''
     stage: ${self:provider.stage}
     createRoute53Record: true
