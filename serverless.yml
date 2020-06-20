@@ -2,8 +2,19 @@ service: lambda-url-shortener
 # org: gjgdserverless
 # app: lambda-url-shortener
 
+plugins:
+  - serverless-domain-manager
+
+custom:
+  customDomain:
+    domainName: tiny.gjgd.fr
+    basePath: ''
+    stage: ${self:provider.stage}
+    createRoute53Record: true
+
 provider:
   name: aws
+  stage: dev
   runtime: nodejs12.x
   profile: serverless-admin
   environment:
