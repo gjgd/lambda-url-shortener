@@ -33,7 +33,7 @@ module.exports.redirect = async (event) => {
     return {
       statusCode: 302,
       headers: {
-        Location: record.url,
+        Location: record.Item.url,
       },
       body: null,
     };
