@@ -1,10 +1,31 @@
 const { DynamoDB } = require('aws-sdk');
-const uuid = require('uuid');
 const fs = require('fs');
+const ShortUrl = require('./ShortUrl');
 
 const homeHtml = fs.readFileSync('./index.html').toString();
 
 const dynamoDb = new DynamoDB.DocumentClient();
+
+// https://theburningmonk.com/2017/04/aws-lambda-build-yourself-a-url-shortener-in-2-hours/
+const getUniqueId = async () => {
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE,
+    Key: {
+      id: '__id',
+    },
+    UpdateExpression: 'add #counter :n',
+    ExpressionAttributeNames: {
+      '#counter': 'counter',
+    },
+    ExpressionAttributeValues: {
+      ':n': 1,
+    },
+    ReturnValues: 'UPDATED_NEW',
+  };
+  const res = await dynamoDb.update(params).promise();
+  const { counter } = res.Attributes;
+  return ShortUrl.encode(counter);
+};
 
 module.exports.home = async () => {
   console.log('home');
@@ -42,24 +63,18 @@ module.exports.redirect = async (event) => {
   };
 };
 
-const getNewId = async () => {
-  // FIXME ensure uniqueness
-  // https://stackoverflow.com/questions/11721308/how-to-make-a-uuid-in-dynamodb
-  // https://stackoverflow.com/questions/742013/how-do-i-create-a-url-shortener
-  const id = uuid.v4();
-  return id.split('-')[0];
-};
-
 module.exports.create = async (event) => {
   console.log('create');
   const body = JSON.parse(event.body);
   const { url } = body;
-  const id = await getNewId();
+  const id = await getUniqueId();
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
       id,
       url,
+      created_timestamp: Date.now(),
+      created_date: new Date().toISOString(),
     },
   };
   await dynamoDb.put(params).promise();

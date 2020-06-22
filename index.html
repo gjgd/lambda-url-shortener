@@ -40,10 +40,20 @@
           },
           body: JSON.stringify({ url }),
         })
-        .then(res => res.json())
+        .then(res => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            throw new Error();
+          }
+        })
         .then((data) => {
           const successEl = document.getElementById('result');
           successEl.innerHTML = `Your short URL is <a href="https://${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
+        })
+        .catch((error) => {
+          const errorEl = document.getElementById('error');
+          errorEl.innerHTML = 'An error has happened, please try again later';
         });
       }
     }
