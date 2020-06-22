@@ -73,6 +73,8 @@ module.exports.create = async (event) => {
     Item: {
       id,
       url,
+      created_timestamp: Date.now(),
+      created_date: new Date().toISOString(),
     },
   };
   await dynamoDb.put(params).promise();
