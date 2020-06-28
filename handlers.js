@@ -2,9 +2,28 @@ const { DynamoDB } = require('aws-sdk');
 const fs = require('fs');
 const ShortUrl = require('./ShortUrl');
 
+const dynamoDb = new DynamoDB.DocumentClient();
+
 const homeHtml = fs.readFileSync('./index.html').toString();
 
-const dynamoDb = new DynamoDB.DocumentClient();
+// List of domains that are allowed to POST to the create lambda
+const corsWhitelist = require('./corsWhitelist.json').whitelist;
+
+const getCorsHeaders = (event) => {
+  if (event && event.headers && event.headers.origin) {
+    const origin = event.headers.origin
+      .toLowerCase();
+    console.log(`${origin} allowed?: ${corsWhitelist.includes(origin)}`);
+    if (corsWhitelist.includes(origin)) {
+      return {
+        'Access-Control-Allow-Origin': event.headers.origin,
+        // https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Access-Control-Allow-Origin
+        Vary: 'Origin',
+      };
+    }
+  }
+  return {};
+};
 
 // https://theburningmonk.com/2017/04/aws-lambda-build-yourself-a-url-shortener-in-2-hours/
 const getUniqueId = async () => {
@@ -79,6 +98,7 @@ module.exports.create = async (event) => {
   };
   await dynamoDb.put(params).promise();
 
+  const headers = getCorsHeaders(event);
   return {
     statusCode: 200,
     body: JSON.stringify(
@@ -88,5 +108,6 @@ module.exports.create = async (event) => {
       null,
       2,
     ),
+    headers,
   };
 };

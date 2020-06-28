@@ -64,3 +64,5 @@ functions:
       - http:
           path: /
           method: post
+          cors:
+            origins: ${file(./corsWhitelist.json):whitelist}
