@@ -2,22 +2,17 @@ const { DynamoDB } = require('aws-sdk');
 const fs = require('fs');
 const ShortUrl = require('./ShortUrl');
 
-const homeHtml = fs.readFileSync('./index.html').toString();
-
 const dynamoDb = new DynamoDB.DocumentClient();
 
+const homeHtml = fs.readFileSync('./index.html').toString();
+
 // List of domains that are allowed to POST to the create lambda
-const corsWhitelist = [
-  'localhost:3000',
-  'localhost:5000',
-  'jsonld-checker.com',
-];
+const corsWhitelist = require('./corsWhitelist.json').whitelist;
 
 const getCorsHeaders = (event) => {
   if (event && event.headers && event.headers.origin) {
     const origin = event.headers.origin
-      .toLowerCase()
-      .replace(/https?:\/\//, '');
+      .toLowerCase();
     console.log(`${origin} allowed?: ${corsWhitelist.includes(origin)}`);
     if (corsWhitelist.includes(origin)) {
       return {

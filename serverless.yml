@@ -65,7 +65,4 @@ functions:
           path: /
           method: post
           cors:
-            origins:
-              - 'http://localhost:3000'
-              - 'http://localhost:5000'
-              - 'jsonld-checker.com'
+            origins: ${file(./corsWhitelist.json):whitelist}
