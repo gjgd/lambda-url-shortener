@@ -24,6 +24,10 @@ provider:
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     URL: 'tiny.gjgd.fr'
+    CORS_WHITELIST:
+      Fn::Join:
+        - " "
+        - ${self:custom.corsWhitelist}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -70,8 +74,3 @@ functions:
           method: post
           cors:
             origins: ${self:custom.corsWhitelist}
-          environment:
-            CORS_WHITELIST:
-              Fn::Join:
-                - " "
-                - ${self:custom.corsWhitelist}
