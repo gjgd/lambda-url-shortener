@@ -6,6 +6,10 @@ plugins:
   - serverless-domain-manager
 
 custom:
+  corsWhitelist:
+    - "http://localhost:3000"
+    - "http://localhost:5000"
+    - "https://www.jsonld-checker.com"
   customDomain:
     domainName: ${self:provider.environment.URL}
     basePath: ''
@@ -65,4 +69,9 @@ functions:
           path: /
           method: post
           cors:
-            origins: ${file(./corsWhitelist.json):whitelist}
+            origins: ${self:custom.corsWhitelist}
+          environment:
+            CORS_WHITELIST:
+              Fn::Join:
+                - " "
+                - ${self:custom.corsWhitelist}

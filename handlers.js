@@ -7,7 +7,7 @@ const dynamoDb = new DynamoDB.DocumentClient();
 const homeHtml = fs.readFileSync('./index.html').toString();
 
 // List of domains that are allowed to POST to the create lambda
-const corsWhitelist = require('./corsWhitelist.json').whitelist;
+const corsWhitelist = process.env.CORS_WHITELIST.split(' ');
 
 const getCorsHeaders = (event) => {
   if (event && event.headers && event.headers.origin) {
