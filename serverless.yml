@@ -5,6 +5,10 @@ app: lambda-url-shortener
 plugins:
   - serverless-domain-manager
 
+package:
+  exclude:
+    - node_modules/**
+
 custom:
   corsWhitelist:
     - "http://localhost:3000"
