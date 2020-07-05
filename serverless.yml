@@ -5,7 +5,15 @@ app: lambda-url-shortener
 plugins:
   - serverless-domain-manager
 
+package:
+  exclude:
+    - node_modules/**
+
 custom:
+  corsWhitelist:
+    - "http://localhost:3000"
+    - "http://localhost:5000"
+    - "https://www.jsonld-checker.com"
   customDomain:
     domainName: ${self:provider.environment.URL}
     basePath: ''
@@ -20,6 +28,10 @@ provider:
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     URL: 'tiny.gjgd.fr'
+    CORS_WHITELIST:
+      Fn::Join:
+        - " "
+        - ${self:custom.corsWhitelist}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -65,4 +77,4 @@ functions:
           path: /
           method: post
           cors:
-            origins: ${file(./corsWhitelist.json):whitelist}
+            origins: ${self:custom.corsWhitelist}
