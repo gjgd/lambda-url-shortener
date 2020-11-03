@@ -28,7 +28,7 @@ provider:
   profile: serverless-admin
   environment:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    URL: 'tiny.gjgd.fr'
+    URL: 'tiny.gjgd.xyz'
     CORS_WHITELIST:
       Fn::Join:
         - " "
