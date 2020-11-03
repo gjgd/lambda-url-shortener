@@ -2,7 +2,7 @@
 
 A personal URL shortener service powered by Serverless, AWS Lambda and DynamoDB
 
-https://tiny.gjgd.fr/
+https://tiny.gjgd.xyz/
 
 ## How to deploy your own shortener
 

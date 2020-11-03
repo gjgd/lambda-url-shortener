@@ -12,7 +12,7 @@
     "eslint": "7.2.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.21.2",
-    "serverless-domain-manager": "^4.1.1"
+    "serverless-domain-manager": "^5.0.0"
   },
   "dependencies": {
     "aws-sdk": "^2.701.0"
