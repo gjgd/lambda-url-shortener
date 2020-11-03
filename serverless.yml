@@ -13,8 +13,6 @@ custom:
   corsWhitelist:
     - "http://localhost:3000"
     - "http://localhost:5000"
-    - "https://www.jsonld-checker.com"
-    - "https://new.jsonld-checker.com"
   customDomain:
     domainName: ${self:provider.environment.URL}
     basePath: ''
