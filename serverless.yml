@@ -1,6 +1,5 @@
 app: url-shortener
 name: url-shortener-express
-profile: serverless-admin
 component: express
 org: gjgdserverless
 
