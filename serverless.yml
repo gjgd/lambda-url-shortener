@@ -1,10 +1,12 @@
-name: url-shortener
+app: url-shortener
+name: url-shortener-express
+profile: serverless-admin
 component: express
 org: gjgdserverless
 
 inputs:
   src: ./
-  domain: t.gjgd.xyz
+  domain: tiny.gjgd.xyz
   env:
-    DYNAMODB_TABLE: lambda-url-shortener-dev
-    URL: t.gjgd.xyz
+    DYNAMODB_TABLE: ${output:url-shortener-db.name}
+    URL: tiny.gjgd.xyz
