@@ -1,0 +1,17 @@
+app: url-shortener
+name: url-shortener-db
+profile: serverless-admin
+component: aws-dynamodb
+org: gjgdserverless
+
+inputs:
+  name: ${name}-${stage}
+  region: us-east-1
+  # Prevent the Database Table from being removed when "serverless remove" is run
+  deletionPolicy: retain
+  attributeDefinitions:
+    - AttributeName: id
+      AttributeType: S
+  keySchema:
+    - AttributeName: id
+      KeyType: HASH
