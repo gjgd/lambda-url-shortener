@@ -1,20 +1,19 @@
 {
-  "name": "lambda-url-shortener",
+  "name": "url-shortener",
   "author": "gjgd <gjgd@protonmail.com>",
   "version": "1.0.0",
-  "description": "",
+  "license": "MIT",
   "scripts": {
     "deploy": "sls deploy",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist && mkdir dist && cp -r src/* package* dist/ && cd dist && npm i --production && cd -",
+    "lint": "eslint ."
   },
-  "license": "ISC",
   "devDependencies": {
     "eslint": "7.2.0",
     "eslint-config-airbnb": "^18.2.0",
-    "eslint-plugin-import": "^2.21.2",
-    "serverless-domain-manager": "^5.0.0"
+    "eslint-plugin-import": "^2.21.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.701.0"
+    "express": "^4.17.1"
   }
 }
