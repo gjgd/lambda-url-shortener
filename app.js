@@ -1,4 +1,5 @@
 const express = require('express');
+// eslint-disable-next-line import/no-unresolved
 const { DynamoDB } = require('aws-sdk');
 const fs = require('fs');
 const ShortUrl = require('./ShortUrl');
