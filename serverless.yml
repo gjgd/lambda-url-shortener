@@ -1,79 +1,10 @@
-service: lambda-url-shortener
+name: url-shortener
+component: express
 org: gjgdserverless
-app: lambda-url-shortener
 
-plugins:
-  - serverless-domain-manager
-
-package:
-  exclude:
-    - node_modules/**
-
-custom:
-  corsWhitelist:
-    - "http://localhost:3000"
-    - "http://localhost:5000"
-  customDomain:
-    domainName: ${self:provider.environment.URL}
-    basePath: ''
-    stage: ${self:provider.stage}
-    createRoute53Record: true
-
-provider:
-  name: aws
-  stage: dev
-  runtime: nodejs12.x
-  profile: serverless-admin
-  environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-    URL: 'tiny.gjgd.xyz'
-    CORS_WHITELIST:
-      Fn::Join:
-        - " "
-        - ${self:custom.corsWhitelist}
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
-
-resources:
-  Resources:
-    ShortUrls:
-      Type: AWS::DynamoDB::Table
-      Properties:
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
-        AttributeDefinitions:
-          - AttributeName: id
-            AttributeType: S
-        KeySchema:
-          - AttributeName: id
-            KeyType: HASH
-        BillingMode: PAY_PER_REQUEST
-
-functions:
-  redirect:
-    handler: handlers.redirect
-    events:
-      - http:
-          path: /{shortUrl}
-          method: get
-  home:
-    handler: handlers.home
-    events:
-      - http:
-          path: /
-          method: get
-  create:
-    handler: handlers.create
-    events:
-      - http:
-          path: /
-          method: post
-          cors:
-            origins: ${self:custom.corsWhitelist}
+inputs:
+  src: ./
+  domain: t.gjgd.xyz
+  env:
+    DYNAMODB_TABLE: lambda-url-shortener-dev
+    URL: t.gjgd.xyz
