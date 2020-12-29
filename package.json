@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "deploy": "sls deploy",
+    "build": "rm -rf dist && mkdir dist && cp -r src/* package* dist/ && cd dist && npm i --production && cd -",
     "lint": "eslint ."
   },
   "devDependencies": {

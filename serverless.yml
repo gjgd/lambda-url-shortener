@@ -4,7 +4,9 @@ component: express
 org: gjgdserverless
 
 inputs:
-  src: ./
+  src:
+    hook: npm run build
+    dist: ./dist
   domain: tiny.gjgd.xyz
   env:
     DYNAMODB_TABLE: ${output:url-shortener-db.name}
