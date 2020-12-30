@@ -36,48 +36,62 @@ app.get('/', (_req, res) => {
   res.status(200).set('Content-Type', 'text/html').send(homeHtml);
 });
 
-app.get('/v1/:shortUrl', async (req, res) => {
-  const { shortUrl } = req.params;
-  const params = {
-    TableName: process.env.DYNAMODB_TABLE,
-    Key: {
-      id: shortUrl,
-    },
-  };
-  const record = await dynamoDb.get(params).promise();
-  if (record && record.Item) {
-    res.status(302).set('Location', record.Item.url).send();
-  } else {
-    res.status(404).send('Url not found');
+app.get('/v1/:shortUrl', async (req, res, next) => {
+  try {
+    const { shortUrl } = req.params;
+    const params = {
+      TableName: process.env.DYNAMODB_TABLE,
+      Key: {
+        id: shortUrl,
+      },
+    };
+    const record = await dynamoDb.get(params).promise();
+    if (record && record.Item) {
+      res.status(302).set('Location', record.Item.url).send();
+    } else {
+      res.status(404).send('Url not found');
+    }
+  } catch (error) {
+    next(error);
   }
 });
 
-app.post('/', async (req, res) => {
-  const { body } = req;
-  const { url } = body;
-  const incrementalId = await getUniqueId();
-  // Use a secret namespace
-  const uniqueId = uuidv5(incrementalId, NIL);
-  const params = {
-    TableName: process.env.DYNAMODB_TABLE,
-    Item: {
-      id: uniqueId,
-      url,
-      created_timestamp: Date.now(),
-      created_date: new Date().toISOString(),
-    },
-  };
-  await dynamoDb.put(params).promise();
-
-  res.status(200).send(
-    JSON.stringify(
-      {
-        shortUrl: `${process.env.URL}/v1/${uniqueId}`,
+app.post('/', async (req, res, next) => {
+  try {
+    const { body } = req;
+    const { url } = body;
+    const incrementalId = await getUniqueId();
+    // Use a secret namespace
+    const uniqueId = uuidv5(incrementalId, NIL);
+    const params = {
+      TableName: process.env.DYNAMODB_TABLE,
+      Item: {
+        id: uniqueId,
+        url,
+        created_timestamp: Date.now(),
+        created_date: new Date().toISOString(),
       },
-      null,
-      2,
-    ),
-  );
+    };
+    await dynamoDb.put(params).promise();
+
+    res.status(200).send(
+      JSON.stringify(
+        {
+          shortUrl: `${process.env.URL}/v1/${uniqueId}`,
+        },
+        null,
+        2,
+      ),
+    );
+  } catch (error) {
+    next(error);
+  }
+});
+
+// Error handling
+app.use((err, req, res) => {
+  console.error(err);
+  res.status(500).send(err.message);
 });
 
 module.exports = app;
