@@ -3,7 +3,6 @@ const express = require('express');
 const { DynamoDB } = require('aws-sdk');
 const fs = require('fs');
 const { NIL, v5: uuidv5 } = require('uuid');
-const ShortUrl = require('./ShortUrl');
 
 const dynamoDb = new DynamoDB.DocumentClient();
 const homeHtml = fs.readFileSync('./index.html').toString();
@@ -26,7 +25,7 @@ const getUniqueId = async () => {
   };
   const res = await dynamoDb.update(params).promise();
   const { counter } = res.Attributes;
-  return ShortUrl.encode(counter);
+  return String(counter);
 };
 
 const app = express();
@@ -62,6 +61,7 @@ app.post('/', async (req, res) => {
   const { body } = req;
   const { url } = body;
   const incrementalId = await getUniqueId();
+  // Use a secret namespace
   const uniqueId = uuidv5(incrementalId, NIL);
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
