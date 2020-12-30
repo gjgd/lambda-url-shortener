@@ -38,23 +38,18 @@ app.get('/', (_req, res) => {
 
 app.get('/v1/:shortUrl', async (req, res) => {
   const { shortUrl } = req.params;
-  // TODO
-  if (shortUrl === 'favicon.ico') {
-    return res.status(200).send();
+  const params = {
+    TableName: process.env.DYNAMODB_TABLE,
+    Key: {
+      id: shortUrl,
+    },
+  };
+  const record = await dynamoDb.get(params).promise();
+  if (record && record.Item) {
+    res.status(302).set('Location', record.Item.url).send();
+  } else {
+    res.status(404).send('Url not found');
   }
-  if (shortUrl) {
-    const params = {
-      TableName: process.env.DYNAMODB_TABLE,
-      Key: {
-        id: shortUrl,
-      },
-    };
-    // FIXME try catch here when not found
-    const record = await dynamoDb.get(params).promise();
-
-    return res.status(302).set('Location', record.Item.url).send();
-  }
-  return res.status(200).send();
 });
 
 app.post('/', async (req, res) => {
