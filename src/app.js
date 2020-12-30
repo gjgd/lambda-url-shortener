@@ -36,9 +36,9 @@ app.get('/', (_req, res) => {
   res.status(200).set('Content-Type', 'text/html').send(homeHtml);
 });
 
-// TODO: prefix with v1
-app.get('/:shortUrl', async (req, res) => {
+app.get('/v1/:shortUrl', async (req, res) => {
   const { shortUrl } = req.params;
+  // TODO
   if (shortUrl === 'favicon.ico') {
     return res.status(200).send();
   }
@@ -77,7 +77,7 @@ app.post('/', async (req, res) => {
   res.status(200).send(
     JSON.stringify(
       {
-        shortUrl: `${process.env.URL}/${uniqueId}`,
+        shortUrl: `${process.env.URL}/v1/${uniqueId}`,
       },
       null,
       2,
