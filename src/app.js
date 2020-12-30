@@ -2,6 +2,7 @@ const express = require('express');
 // eslint-disable-next-line import/no-unresolved
 const { DynamoDB } = require('aws-sdk');
 const fs = require('fs');
+const { NIL, v5: uuidv5 } = require('uuid');
 const ShortUrl = require('./ShortUrl');
 
 const dynamoDb = new DynamoDB.DocumentClient();
@@ -60,11 +61,12 @@ app.get('/:shortUrl', async (req, res) => {
 app.post('/', async (req, res) => {
   const { body } = req;
   const { url } = body;
-  const id = await getUniqueId();
+  const incrementalId = await getUniqueId();
+  const uniqueId = uuidv5(incrementalId, NIL);
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
-      id,
+      id: uniqueId,
       url,
       created_timestamp: Date.now(),
       created_date: new Date().toISOString(),
@@ -75,7 +77,7 @@ app.post('/', async (req, res) => {
   res.status(200).send(
     JSON.stringify(
       {
-        shortUrl: `${process.env.URL}/${id}`,
+        shortUrl: `${process.env.URL}/${uniqueId}`,
       },
       null,
       2,
