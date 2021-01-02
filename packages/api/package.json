@@ -1,0 +1,20 @@
+{
+  "name": "url-shortener",
+  "author": "gjgd <gjgd@protonmail.com>",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "sls deploy",
+    "build": "rm -rf dist && mkdir dist && cp -r src/* package* dist/ && cd dist && npm i --production && cd -",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "7.2.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.21.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid": "^8.3.2"
+  }
+}
