@@ -90,6 +90,7 @@ app.post('/', async (req, res, next) => {
 
 // Error handling
 app.use((err, req, res) => {
+  // eslint-disable-next-line no-console
   console.error(err);
   res.status(500).send(err.message);
 });

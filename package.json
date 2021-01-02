@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "lint": "lerna run lint --stream",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
