@@ -2,31 +2,10 @@ const express = require('express');
 // eslint-disable-next-line import/no-unresolved
 const { DynamoDB } = require('aws-sdk');
 const fs = require('fs');
-const { NIL, v5: uuidv5 } = require('uuid');
+const { getUniqueId } = require('./utils');
 
 const dynamoDb = new DynamoDB.DocumentClient();
 const homeHtml = fs.readFileSync('./index.html').toString();
-
-// https://theburningmonk.com/2017/04/aws-lambda-build-yourself-a-url-shortener-in-2-hours/
-const getUniqueId = async () => {
-  const params = {
-    TableName: process.env.DYNAMODB_TABLE,
-    Key: {
-      id: '__id',
-    },
-    UpdateExpression: 'add #counter :n',
-    ExpressionAttributeNames: {
-      '#counter': 'counter',
-    },
-    ExpressionAttributeValues: {
-      ':n': 1,
-    },
-    ReturnValues: 'UPDATED_NEW',
-  };
-  const res = await dynamoDb.update(params).promise();
-  const { counter } = res.Attributes;
-  return String(counter);
-};
 
 const app = express();
 
@@ -60,9 +39,7 @@ app.post('/', async (req, res, next) => {
   try {
     const { body } = req;
     const { url } = body;
-    const incrementalId = await getUniqueId();
-    // Use a secret namespace
-    const uniqueId = uuidv5(incrementalId, NIL);
+    const uniqueId = await getUniqueId(dynamoDb);
     const params = {
       TableName: process.env.DYNAMODB_TABLE,
       Item: {
