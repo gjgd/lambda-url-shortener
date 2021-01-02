@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
+    "build": "lerna run build --stream",
     "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
