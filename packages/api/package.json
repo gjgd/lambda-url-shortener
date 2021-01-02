@@ -10,6 +10,7 @@
     "lint": "eslint ./src"
   },
   "devDependencies": {
+    "aws-sdk": "^2.820.0",
     "eslint": "7.2.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.21.2"

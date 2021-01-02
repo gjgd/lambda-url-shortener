@@ -1,16 +1,10 @@
 const express = require('express');
-const fs = require('fs');
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { DynamoDB } = require('aws-sdk');
 const { getUniqueId } = require('./utils');
 
 const dynamoDb = new DynamoDB.DocumentClient();
 const router = express.Router();
-const homeHtml = fs.readFileSync('./index.html').toString();
-
-router.get('/', (_req, res) => {
-  res.status(200).set('Content-Type', 'text/html').send(homeHtml);
-});
 
 router.get('/v1/:shortUrl', async (req, res, next) => {
   try {
