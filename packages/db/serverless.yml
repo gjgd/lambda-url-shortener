@@ -1,6 +1,5 @@
 app: url-shortener
 name: url-shortener-db
-profile: serverless-admin
 component: aws-dynamodb
 org: gjgdserverless
 
