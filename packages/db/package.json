@@ -1,8 +1,9 @@
 {
   "name": "url-shortener-db",
   "author": "gjgd <gjgd@protonmail.com>",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "deploy:dev": "cd config/dev && sls deploy && cd -",
     "deploy:prod": "cd config/prod && sls deploy && cd -"

@@ -1,0 +1,39 @@
+{
+  "name": "url-shortener-app",
+  "author": "gjgd <gjgd@protonmail.com>",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.1",
+    "web-vitals": "^0.2.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "prebuild": "echo REACT_APP_CURRENT_COMMIT=$(git rev-parse --short HEAD) > .env.local",
+    "build": "react-scripts build",
+    "postbuild": "cp -r build/* ../api/src/public",
+    "test": "react-scripts test --passWithNoTests --watchAll=false",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
