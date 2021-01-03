@@ -2,6 +2,7 @@ app: url-shortener
 name: url-shortener-db
 component: aws-dynamodb
 org: gjgdserverless
+stage: prod
 
 inputs:
   name: ${name}-${stage}
