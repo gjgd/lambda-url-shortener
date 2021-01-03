@@ -21,6 +21,9 @@ jobs:
     - name: Install
       run: npm install
 
+    - name: Build App
+      run: npm run build:app
+
     - name: Serverless deploy app
       run: npm i -g serverless && npm run deploy:prod
       env:
