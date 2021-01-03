@@ -4,11 +4,14 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "deploy": "sls deploy",
+    "deploy:dev": "cd config/dev && sls deploy && cd -",
+    "deploy:prod": "cd config/prod && sls deploy && cd -",
+    "test": "echo TODO: add tests",
     "build": "rm -rf dist && mkdir dist && cp -r src/* package* dist/ && cd dist && npm i --production && cd -",
-    "lint": "eslint ."
+    "lint": "eslint ./src"
   },
   "devDependencies": {
+    "aws-sdk": "^2.820.0",
     "eslint": "7.2.0",
     "eslint-config-airbnb": "^18.2.0",
     "eslint-plugin-import": "^2.21.2"

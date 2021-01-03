@@ -1,0 +1,14 @@
+app: url-shortener
+name: url-shortener-express
+component: express
+org: gjgdserverless
+stage: prod
+
+inputs:
+  src:
+    hook: npm run build
+    dist: ../../dist
+  domain: tiny.gjgd.xyz
+  env:
+    DYNAMODB_TABLE: ${output:url-shortener-db.name}
+    URL: tiny.gjgd.xyz
