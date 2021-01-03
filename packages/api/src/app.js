@@ -7,11 +7,11 @@ const app = express();
 // Handle json
 app.use(express.json());
 
-// Serve app
-app.use('/', express.static(path.join(__dirname, '/public')));
-
 // Register routes
 app.use('/', routes);
+
+// Serve app
+app.use(express.static(path.join(__dirname, '/public')));
 
 // Error handling
 // eslint-disable-next-line no-unused-vars
