@@ -2,12 +2,13 @@ app: url-shortener
 name: url-shortener-express
 component: express
 org: gjgdserverless
+stage: dev
 
 inputs:
   src:
     hook: npm run build
-    dist: ./dist
-  domain: tiny.gjgd.xyz
+    dist: ../../dist
+  domain: dev-tiny.gjgd.xyz
   env:
     DYNAMODB_TABLE: ${output:url-shortener-db.name}
-    URL: tiny.gjgd.xyz
+    URL: dev-tiny.gjgd.xyz
