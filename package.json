@@ -4,7 +4,8 @@
   "scripts": {
     "lint": "lerna run lint --stream",
     "test": "lerna run test --stream",
-    "build": "lerna run build --stream",
+    "build:api": "lerna run build --scope=url-shortener",
+    "build:app": "lerna run build --scope=url-shortener-app",
     "deploy:dev": "lerna run deploy:dev --concurrency 1",
     "deploy:prod": "lerna run deploy:prod  --concurrency 1",
     "postinstall": "lerna bootstrap"
