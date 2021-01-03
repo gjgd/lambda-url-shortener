@@ -51,7 +51,7 @@ const App = () => {
       <br />
       <br />
       <br />
-      <span>
+      <div>
         Check the source code on{' '}
         <a
           href='https://github.com/gjgd/lambda-url-shortener'
@@ -60,7 +60,8 @@ const App = () => {
         >
           Github
         </a>
-      </span>
+      </div>
+      <div>Current version: {process.env.REACT_APP_CURRENT_COMMIT}</div>
     </>
   );
 };
