@@ -43,7 +43,7 @@ const shortenUrl = () => {
 
 const App = () => {
   return (
-    <div>
+    <>
       <input type='text' id='url' placeholder='Input URL to shorten' />
       <button onClick={shortenUrl}>Shorten</button>
       <div id='result'></div>
@@ -61,7 +61,7 @@ const App = () => {
           Github
         </a>
       </span>
-    </div>
+    </>
   );
 };
 
