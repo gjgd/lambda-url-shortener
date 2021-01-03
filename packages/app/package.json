@@ -1,6 +1,8 @@
 {
   "name": "url-shortener-app",
+  "author": "gjgd <gjgd@protonmail.com>",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "dependencies": {
     "react": "^17.0.1",
