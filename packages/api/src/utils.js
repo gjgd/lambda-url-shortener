@@ -18,7 +18,8 @@ const getUniqueId = async (dynamoDb) => {
   };
   const res = await dynamoDb.update(params).promise();
   const { counter } = res.Attributes;
-  const uniqueId = uuidv5(String(counter), NIL);
+  const namespace = process.env.SECRET_UUID_NAMESPACE || NIL;
+  const uniqueId = uuidv5(String(counter), namespace);
   return uniqueId;
 };
 

@@ -11,3 +11,4 @@ inputs:
   domain: tiny.gjgd.xyz
   env:
     DYNAMODB_TABLE: ${output:url-shortener-db.name}
+    SECRET_UUID_NAMESPACE: ${env:SECRET_UUID_NAMESPACE}
