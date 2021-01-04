@@ -11,4 +11,3 @@ inputs:
   domain: dev-tiny.gjgd.xyz
   env:
     DYNAMODB_TABLE: ${output:url-shortener-db.name}
-    URL: dev-tiny.gjgd.xyz
