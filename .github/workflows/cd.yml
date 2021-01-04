@@ -10,23 +10,23 @@ jobs:
     name: deploy
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
 
-    - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
 
-    - name: Use Node.js 14.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
+      - name: Install dependencies
+        run: npm install
 
-    - name: Install
-      run: npm install
+      - name: Build App
+        run: npm run build:app
 
-    - name: Build App
-      run: npm run build:app
-
-    - name: Serverless deploy app
-      run: npm i -g serverless && npm run deploy:prod
-      env:
-        SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: Serverless deploy app
+        run: npm i -g serverless && npm run deploy:prod
+        env:
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          SECRET_UUID_NAMESPACE: ${{ secrets.SECRET_UUID_NAMESPACE }}
