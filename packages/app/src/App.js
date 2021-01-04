@@ -32,7 +32,8 @@ const shortenUrl = () => {
     })
     .then((data) => {
       const successEl = document.getElementById('result');
-      successEl.innerHTML = `Your short URL is <a href="https://${data.shortUrl}" target="_blank">${data.shortUrl}</a>`;
+      const url = `${window.origin}${data.shortUrl}`
+      successEl.innerHTML = `Your short URL is <a href="${url}" target="_blank">${url}</a>`;
     })
     .catch((error) => {
       const errorEl = document.getElementById('error');

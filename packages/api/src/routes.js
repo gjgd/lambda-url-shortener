@@ -45,7 +45,7 @@ router.post('/', async (req, res, next) => {
     res.status(200).send(
       JSON.stringify(
         {
-          shortUrl: `${process.env.URL}/v1/${uniqueId}`,
+          shortUrl: `/v1/${uniqueId}`,
         },
         null,
         2,
